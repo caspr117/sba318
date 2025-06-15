@@ -21,3 +21,10 @@ export function deleteUser(id) {
     obj.splice(index, 1);
     return true;
 }
+
+export function addComment(userId, text) {
+  const user = obj.find(u => u.id === parseInt(userId));
+  if (user) {
+    user.comments.push({ text });
+  }
+}

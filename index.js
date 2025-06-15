@@ -1,5 +1,5 @@
 import express from "express"
-import {addUser, getPosts, updateUser, deleteUser} from "./public/js/data.js"
+import {addUser, getPosts, updateUser, deleteUser, addComment} from "./public/js/data.js"
 import path from "path"
 const app = express()
 
@@ -26,6 +26,10 @@ app.patch("/posts/:id", (req, res) => {
     if (!updated) return res.status(404).send("User not found");
 
     res.render("success", { message: "Patch successful" });
+});
+app.post("/users/:id/comments", (req, res) => {
+  addComment(req.params.id, req.body.text);
+  res.redirect(`/users/${req.params.id}`); 
 });
 app.delete("/posts/:id", (req, res) => {
     const deleted = deleteUser(req.params.id);
