@@ -1,9 +1,11 @@
 import express from "express"
-import {addUser, getPosts} from "./public/js/data.js"
+import {addUser, getPosts, updateUser} from "./public/js/data.js"
 import path from "path"
 const app = express()
 
 const port = 5000
+
+app.set('view engine', "ejs")
 
 app.use(express.static('public'))
 app.use(express.json())
@@ -16,6 +18,13 @@ app.get("/posts", (req,res)=>{
     res.json(getPosts())
 })
 app.get("/", (req,res)=>{
-res.send("hey")
+res.render("index", { title: "User Page", buttonText: "Get Users" });
 })
+app.patch("/posts/:id", (req, res) => {
+    const { name } = req.body;
+    const updated = updateUser(req.params.id, name);
+    if (!updated) return res.status(404).send("User not found");
+
+    res.render("success", { message: "Patch successful" });
+});
 app.listen(port)

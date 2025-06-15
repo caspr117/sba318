@@ -12,3 +12,9 @@ export function deleteUser(data){
 export function getPosts(){
     return obj
 }
+export function updateUser(id, newName) {
+    const user = obj.find(u => u.id === parseInt(id));
+    if (!user) return false;
+    user.name = newName;
+    return true;
+}
