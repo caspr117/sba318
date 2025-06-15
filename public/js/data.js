@@ -6,9 +6,6 @@ export function addUser(data){
     data.id = obj.length
  
 }
-export function deleteUser(data){
-    obj.includes(data)
-}
 export function getPosts(){
     return obj
 }
@@ -16,5 +13,11 @@ export function updateUser(id, newName) {
     const user = obj.find(u => u.id === parseInt(id));
     if (!user) return false;
     user.name = newName;
+    return true;
+}
+export function deleteUser(id) {
+    const index = obj.findIndex(user => user.id === parseInt(id));
+    if (index === -1) return false;
+    obj.splice(index, 1);
     return true;
 }
